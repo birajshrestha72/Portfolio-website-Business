@@ -1,0 +1,58 @@
+/* Whole container grid */
+.wholebox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f0f2f5;
+  justify-items: center;
+}
+
+/* Shared styles for all individual ride boxes */
+.wholebox > div {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  width: 100%;
+  max-width: 350px;
+  transition: transform 0.3s ease;
+}
+
+.wholebox > div:hover {
+  transform: translateY(-5px);
+}
+
+/* Image styling */
+.wholebox > div img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  filter: brightness(75%);
+}
+
+/* Title (h1) positioned over image */
+.wholebox > div h1 {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+/* Description below image */
+.wholebox > div p {
+  padding: 1rem;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.5;
+}

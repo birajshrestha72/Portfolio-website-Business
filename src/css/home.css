@@ -1,0 +1,81 @@
+/* General Layout */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Welcome Message */
+p {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-top: 2rem;
+  font-weight: bold;
+}
+
+/* Top Image */
+.img1 img,
+.img2 img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-top: 2rem;
+  border-radius: 10px;
+}
+
+/* Game Boxes Container */
+.box {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  flex-wrap: wrap;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+/* Individual Game Box */
+.box1, .box2, .box3 {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex: 1 1 300px;
+  max-width: 30%;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box1:hover, .box2:hover, .box3:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Optional: Add placeholder image in box */
+.box1::before, .box2::before, .box3::before {
+  content: '';
+  display: block;
+  background: url('../assets/game-placeholder.jpg') center/cover no-repeat;
+  width: 100%;
+  height: 180px;
+  border-radius: 12px 12px 0 0;
+  margin-bottom: 1rem;
+}
+
+/* Game Title */
+.box1 h1, .box2 h1, .box3 h1 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+/* Game Description */
+.box1 p, .box2 p, .box3 p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Bottom Image Styling */
+.img2 {
+  margin-top: 2rem;
+}

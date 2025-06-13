@@ -1,0 +1,50 @@
+
+/* Container holding all location entries */
+.wholesection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+/* Each location block (entry) */
+.wholesection > div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.wholesection > div:hover {
+  transform: translateY(-4px);
+}
+
+/* Image styling (aligned left) */
+.wholesection > div img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  flex-shrink: 0;
+}
+
+/* Text container (title + description) */
+.wholesection > div h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #222;
+}
+
+.wholesection > div p {
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
