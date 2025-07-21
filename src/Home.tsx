@@ -8,7 +8,7 @@ const home = () => {
         <>
         <div>
             <p>
-                Welcome to Disneyland Pokhara, where fun is "Unlimited"
+                Welcome to Disneyland Pokhara where fun is <p className='redfont'>"Unlimited"</p>
             </p>
             <div className='img1'>
                 <img src={img1} alt=''></img>

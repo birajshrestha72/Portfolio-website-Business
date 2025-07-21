@@ -1,5 +1,8 @@
 import './css/footer.css'
 import logo from './assets/logo.png'
+import fbfav from './assets/sociallogo/fblogo.png'
+import tiktokfav from './assets/sociallogo/tiktoklogo.png'
+import igfav from './assets/sociallogo/iglogo.png'
 
 const Footer = () => {
   return (
@@ -46,9 +49,9 @@ const Footer = () => {
 
           </ul>
           <div className="social-icons">
-            <a href="https://www.facebook.com/DisneylandPokhara"><img src='./assets/sociallogo/fblogo.png'/></a>
-            <a href="https://www.tiktok.com/@pokharadisneyland7"><img src='./assets/sociallogo/tiktoklog.png'/></a>
-            <a href="https://www.instagram.com/pokharadisneypark/"><img src='./assets/sociallogo/iglogo.png'/></a>
+            <a href="https://www.facebook.com/DisneylandPokhara"><img src={fbfav}/></a>
+            <a href="https://www.tiktok.com/@pokharadisneyland7"><img src={tiktokfav}/></a>
+            <a href="https://www.instagram.com/pokharadisneypark/"><img src={igfav}/></a>
           </div>
         </div>
         
