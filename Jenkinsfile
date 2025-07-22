@@ -62,12 +62,8 @@ pipeline {
 
     post {
         always {
-            script {
-                // Clean up existing containers with the same name
-                sh """
-                    docker logout || true
-                    docker ps -a --filter "name=${env.CONTAINER_NAME}" --format "{{.ID}}" | xargs -r docker rm -f || true
-                """
+            node {
+                sh 'echo "Always run cleanup or logs here"'
             }
         }
 
