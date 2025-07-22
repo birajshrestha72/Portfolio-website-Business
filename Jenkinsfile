@@ -1,13 +1,13 @@
 pipeline {
     agent any
-    
+
     environment {
         DOCKER_HOST = "unix:///var/run/docker.sock"
         DOCKER_IMAGE = "sushilicp/my-web-app"
-        DOCKER_TAG = "${env.BUILD_ID ?: 'latest'}"
-        CONTAINER_NAME = "my-web-app-${env.BUILD_NUMBER}"
+        DOCKER_TAG = "${BUILD_ID ?: 'latest'}"
+        CONTAINER_NAME = "my-web-app-${BUILD_NUMBER}"
         GOOGLE_CHAT_WEBHOOK = "https://chat.googleapis.com/v1/spaces/AAQAaQR_SNA/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=RR8wTSfb0py5U2VnLa53xYIJp2yYxVSWV4wP4ovXPxk"
-        DEPLOYMENT_URL = "http://localhost:8080"  // Update this
+        DEPLOYMENT_URL = "http://localhost:8080"
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
         HOST_PORT = "8088"
     }
@@ -15,68 +15,47 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', 
-                url: 'https://github.com/sushilicp/html-demo.git',
-                credentialsId: ''
+                git branch: 'main',
+                    url: 'https://github.com/sushilicp/html-demo.git'
             }
         }
-         stage('Login to Docker Hub') {
+
+        stage('Login to Docker Hub') {
             steps {
-                script {
-                    // Secure way to handle credentials
-                    withCredentials([usernamePassword(
-                        credentialsId: 'docker-hub-credentials',
-                        passwordVariable: 'DOCKER_PASSWORD',
-                        usernameVariable: 'DOCKER_USERNAME'
-                    )]) {
-                        sh """
-                            docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD}
-                        """
-                    }
+                withCredentials([usernamePassword(
+                    credentialsId: 'docker-hub-credentials',
+                    usernameVariable: 'DOCKER_USERNAME',
+                    passwordVariable: 'DOCKER_PASSWORD'
+                )]) {
+                    sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    withCredentials([usernamePassword(
-                        credentialsId: 'docker-hub-credentials',
-                        passwordVariable: 'DOCKER_PASSWORD',
-                        usernameVariable: 'DOCKER_USERNAME'
-                    )]) {
-                        sh """
-                            docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-                            docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
-                        """
-                    }
-                }
+                sh "docker build -t ${env.DOCKER_IMAGE}:${env.DOCKER_TAG} ."
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
-                script {
-                    sh """
-                        docker push ${env.DOCKER_IMAGE}:${env.DOCKER_TAG}
-                        docker push ${env.DOCKER_IMAGE}:latest
-                    """
-                }
+                sh """
+                    docker push ${env.DOCKER_IMAGE}:${env.DOCKER_TAG}
+                    docker tag ${env.DOCKER_IMAGE}:${env.DOCKER_TAG} ${env.DOCKER_IMAGE}:latest
+                    docker push ${env.DOCKER_IMAGE}:latest
+                """
             }
         }
 
         stage('Deploy') {
             steps {
-                script {
-                    // Find and stop any container using our port
-                    sh """
-                        # Run new container
-                        docker run -d \
-                            --name ${CONTAINER_NAME} \
-                            -p ${HOST_PORT}:80 \
-                            ${DOCKER_IMAGE}:${DOCKER_TAG}
-                    """
-                }
+                sh """
+                    docker run -d \
+                        --name ${env.CONTAINER_NAME} \
+                        -p ${env.HOST_PORT}:80 \
+                        ${env.DOCKER_IMAGE}:${env.DOCKER_TAG}
+                """
             }
         }
     }
@@ -84,13 +63,14 @@ pipeline {
     post {
         always {
             script {
+                // Clean up existing containers with the same name
                 sh """
                     docker logout || true
-                    docker ps -a --filter "name=${CONTAINER_NAME}" --format "{{.ID}}" | xargs -r docker rm -f || true
+                    docker ps -a --filter "name=${env.CONTAINER_NAME}" --format "{{.ID}}" | xargs -r docker rm -f || true
                 """
             }
         }
-    
+
         success {
             script {
                 def message = """
@@ -102,13 +82,14 @@ pipeline {
                 sendGoogleChatNotification(message)
             }
         }
+
         failure {
             script {
                 def logs = sh(
                     script: "docker logs --tail 50 ${env.CONTAINER_NAME} 2>&1 || true",
                     returnStdout: true
                 ).trim()
-                
+
                 def message = """
                 🔴 *Deployment Failed* 
                 *Build*: #${env.BUILD_NUMBER}
@@ -120,13 +101,14 @@ pipeline {
         }
     }
 }
+
+// Helper function
 def sendGoogleChatNotification(String message) {
     def payload = """
     {
         "text": "${message.replace('"', '\\"').replace('\n', '\\n')}"
     }
     """
-    
     sh """
         curl -X POST \
         -H 'Content-Type: application/json' \
