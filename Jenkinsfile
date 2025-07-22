@@ -3,20 +3,20 @@ pipeline {
 
     environment {
         DOCKER_HOST = "unix:///var/run/docker.sock"
-        DOCKER_IMAGE = "sushilicp/my-web-app"
+        DOCKER_IMAGE = "react-static"
         DOCKER_TAG = "${BUILD_ID ?: 'latest'}"
-        CONTAINER_NAME = "my-web-app-${BUILD_NUMBER}"
+        CONTAINER_NAME = "react-static-${BUILD_NUMBER}"
         GOOGLE_CHAT_WEBHOOK = "https://chat.googleapis.com/v1/spaces/AAQAaQR_SNA/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=RR8wTSfb0py5U2VnLa53xYIJp2yYxVSWV4wP4ovXPxk"
         DEPLOYMENT_URL = "http://localhost:8080"
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
-        HOST_PORT = "8088"
+        HOST_PORT = "8080"
     }
 
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/sushilicp/html-demo.git'
+                    url: 'https://github.com/birajshrestha72/Portfolio-website-Business.git'
             }
         }
 
@@ -62,8 +62,8 @@ pipeline {
 
     post {
         always {
-            node {
-                sh 'echo "Always run cleanup or logs here"'
+            script {
+                echo 'Always run cleanup or logging here'
             }
         }
 
@@ -98,17 +98,16 @@ pipeline {
     }
 }
 
-// Helper function
 def sendGoogleChatNotification(String message) {
     def payload = """
     {
-        "text": "${message.replace('"', '\\"').replace('\n', '\\n')}"
+        "text": "${message.replaceAll('"', '\\\\"').replaceAll('\n', '\\\\n')}"
     }
     """
     sh """
         curl -X POST \
         -H 'Content-Type: application/json' \
         -d '${payload}' \
-        '${env.GOOGLE_CHAT_WEBHOOK}' || echo "Notification failed"
+        '${GOOGLE_CHAT_WEBHOOK}' || echo "Notification failed"
     """
 }
