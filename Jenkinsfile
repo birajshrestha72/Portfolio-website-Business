@@ -87,17 +87,20 @@ pipeline {
                         script: "docker logs --tail 50 ${env.CONTAINER_NAME} 2>&1 || true",
                         returnStdout: true
                     ).trim()
+                }
+                def message = """
+                🔴 *Deployment Failed* 
+                *Build*: #${env.BUILD_NUMBER}
+                *Error*: ${currentBuild.currentResult}
+                *Logs*: ${logs}
+                """
+                sendGoogleChatNotification(message)
+            }
         }
-        def message = """
-        🔴 *Deployment Failed* 
-        *Build*: #${env.BUILD_NUMBER}
-        *Error*: ${currentBuild.currentResult}
-        *Logs*: ${logs}
-        """
-        sendGoogleChatNotification(message)
     }
 }
 
+// 🔧 Function must be OUTSIDE the pipeline block
 def sendGoogleChatNotification(String message) {
     def payload = """
     {
