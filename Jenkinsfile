@@ -81,20 +81,20 @@ pipeline {
 
         failure {
             script {
-                def logs = sh(
-                    script: "docker logs --tail 50 ${env.CONTAINER_NAME} 2>&1 || true",
-                    returnStdout: true
-                ).trim()
-
-                def message = """
-                🔴 *Deployment Failed* 
-                *Build*: #${env.BUILD_NUMBER}
-                *Error*: ${currentBuild.currentResult}
-                *Logs*: ${logs}
-                """
-                sendGoogleChatNotification(message)
-            }
+                def logs = ''
+                node {
+                    logs = sh(
+                        script: "docker logs --tail 50 ${env.CONTAINER_NAME} 2>&1 || true",
+                        returnStdout: true
+                    ).trim()
         }
+        def message = """
+        🔴 *Deployment Failed* 
+        *Build*: #${env.BUILD_NUMBER}
+        *Error*: ${currentBuild.currentResult}
+        *Logs*: ${logs}
+        """
+        sendGoogleChatNotification(message)
     }
 }
 
