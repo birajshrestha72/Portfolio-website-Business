@@ -70,22 +70,6 @@ pipeline {
                 script {
                     // Find and stop any container using our port
                     sh """
-                        # Find container using port ${HOST_PORT}
-                        CONTAINER_USING_PORT=\$(docker ps --format '{{.Names}}' --filter "publish=${HOST_PORT}" | head -n 1)
-                        
-                        # Stop and remove if found
-                        if [ -n "\$CONTAINER_USING_PORT" ]; then
-                            echo "Found container \$CONTAINER_USING_PORT using port ${HOST_PORT}, stopping it..."
-                            docker stop \$CONTAINER_USING_PORT || true
-                            docker rm \$CONTAINER_USING_PORT || true
-                        fi
-                        
-                        # Remove our named container if it exists
-                        if docker container inspect ${CONTAINER_NAME} &>/dev/null; then
-                            docker stop ${CONTAINER_NAME} || true
-                            docker rm ${CONTAINER_NAME} || true
-                        fi
-                        
                         # Run new container
                         docker run -d \
                             --name ${CONTAINER_NAME} \
