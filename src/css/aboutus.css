@@ -1,0 +1,14 @@
+
+/* Responsive styles for about us */
+@media (max-width: 900px) {
+	.about-container {
+		padding: 1rem;
+	}
+}
+
+@media (max-width: 600px) {
+	.about-container {
+		padding: 0.5rem;
+		font-size: 0.95rem;
+	}
+}

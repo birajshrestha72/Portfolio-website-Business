@@ -102,3 +102,21 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 1.5rem 0.5rem;
+  }
+  .footer-logo {
+    width: 80px;
+  }
+  .footer-section h4 {
+    font-size: 1rem;
+  }
+  .footer-section p,
+  .footer-section ul,
+  .footer-section li,
+  .footer-section a {
+    font-size: 0.85rem;
+  }
+}

@@ -28,3 +28,33 @@
   color: #0077ff;
   text-transform: uppercase;
 }
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .navbar {
+    padding: 1rem 0.5rem;
+  }
+  .nav-list {
+    gap: 1rem;
+  }
+  .logo img {
+    height: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem 0.2rem;
+  }
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .logo img {
+    height: 32px;
+  }
+}

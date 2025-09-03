@@ -1,0 +1,14 @@
+
+/* Responsive base styles for App */
+@media (max-width: 900px) {
+	body {
+		font-size: 1rem;
+	}
+}
+
+@media (max-width: 600px) {
+	body {
+		font-size: 0.95rem;
+		padding: 0.2rem;
+	}
+}

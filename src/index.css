@@ -1,0 +1,13 @@
+
+/* Responsive base styles for index */
+@media (max-width: 900px) {
+	html {
+		font-size: 15px;
+	}
+}
+
+@media (max-width: 600px) {
+	html {
+		font-size: 14px;
+	}
+}
