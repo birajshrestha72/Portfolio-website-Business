@@ -38,25 +38,6 @@ function App() {
             <Footer />
           </>
         } />
-            </ProtectedRoute>
-          } />
-          <Route path="/admin/games/new" element={
-            <ProtectedRoute>
-              <GameForm />
-            </ProtectedRoute>
-          } />
-          <Route path="/admin/games/edit/:id" element={
-            <ProtectedRoute>
-              <GameForm />
-            </ProtectedRoute>
-          } />
-          <Route path="/admin/settings" element={
-            <ProtectedRoute>
-              <Settings />
-            </ProtectedRoute>
-          } />
-        </Routes>
-      </Router>
       </Routes>
     </Router>
   );
