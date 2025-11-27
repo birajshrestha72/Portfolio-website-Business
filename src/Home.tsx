@@ -6,12 +6,14 @@ import img2 from './assets/pokhara parkpg.jpg'
 const home = () => {
     return(
         <>
-        <div>
-            <p>
-                Welcome to Disneyland Pokhara where fun is <p className='redfont'>"Unlimited"</p>
-            </p>
+        <div className='home-container'>
+            <div className='welcome-text'>
+                <p>
+                    Welcome to Disneyland Pokhara where fun is <span className='redfont'>"Unlimited"</span>
+                </p>
+            </div>
             <div className='img1'>
-                <img src={img1} alt=''></img>
+                <img src={img1} alt='Disneyland Pokhara'></img>
             </div>
             <div className='box'>
                 <div className='box1'>
@@ -34,7 +36,7 @@ const home = () => {
                 </div>
             </div>
             <div className='img2'>
-                <img src={img2} alt=''></img>
+                <img src={img2} alt='Pokhara Park'></img>
             </div>
         </div>
         </>

@@ -2,6 +2,18 @@
   background-color: #ffffff;
   padding: 1rem 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .nav-list {
@@ -11,10 +23,12 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  margin-left: auto;
 }
 
 .logo img {
   height: 55px;
+  width: auto;
 }
 
 .nav-list a {
@@ -22,6 +36,8 @@
   color: #333;
   font-weight: 500;
   transition: color 0.3s ease;
+  padding: 0.5rem 1rem;
+  display: block;
 }
 
 .nav-list a:hover {
@@ -29,10 +45,30 @@
   text-transform: uppercase;
 }
 
+/* Hamburger Menu Button */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.hamburger {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 3px 0;
+  transition: 0.3s;
+  border-radius: 3px;
+}
+
 /* Responsive styles */
 @media (max-width: 900px) {
   .navbar {
-    padding: 1rem 0.5rem;
+    padding: 1rem 1rem;
   }
   .nav-list {
     gap: 1rem;
@@ -40,21 +76,69 @@
   .logo img {
     height: 40px;
   }
+  .nav-list a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.95rem;
+  }
 }
 
-@media (max-width: 600px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.5rem 0.2rem;
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
   }
+  
   .nav-list {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: #ffffff;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    padding: 5rem 2rem 2rem;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out;
+    gap: 0;
+  }
+  
+  .nav-list.active {
+    right: 0;
+  }
+  
+  .nav-list li {
     width: 100%;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .nav-list a {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  .hamburger.open:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+  
+  .hamburger.open:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger.open:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.8rem;
   }
   .logo img {
-    height: 32px;
+    height: 35px;
+  }
+  .nav-list {
+    width: 80%;
   }
 }

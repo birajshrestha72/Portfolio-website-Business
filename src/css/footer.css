@@ -51,6 +51,15 @@
   text-decoration: underline;
 }
 
+.admin-link {
+  color: #3498db !important;
+  font-weight: 600;
+}
+
+.admin-link:hover {
+  color: #2980b9 !important;
+}
+
 /* Sitemap List */
 .footer-section ul {
   list-style: none;

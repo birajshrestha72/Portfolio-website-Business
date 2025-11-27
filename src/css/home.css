@@ -5,15 +5,29 @@ body {
   background-color: #f5f5f5;
   color: #333;
 }
-.redfont{
-  color: rgb(219, 164, 46);
+
+.home-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
 }
-/* Welcome Message */
-p {
-  font-size: 1.8rem;
-  text-align: center;
-  margin-top: 2rem;
+
+.redfont {
+  color: rgb(219, 164, 46);
   font-weight: bold;
+}
+
+/* Welcome Message */
+.welcome-text {
+  text-align: center;
+  margin: 2rem 1rem;
+}
+
+.welcome-text p {
+  font-size: 1.8rem;
+  font-weight: bold;
+  line-height: 1.4;
+  margin: 0;
 }
 
 /* Top Image */
@@ -21,8 +35,9 @@ p {
 .img2 img {
   width: 100%;
   height: auto;
+  max-height: 500px;
   object-fit: cover;
-  margin-top: 2rem;
+  margin-top: 1rem;
   border-radius: 10px;
 }
 
@@ -32,7 +47,7 @@ p {
   justify-content: space-around;
   align-items: stretch;
   flex-wrap: wrap;
-  padding: 2rem;
+  padding: 2rem 1rem;
   gap: 1.5rem;
 }
 
@@ -43,7 +58,7 @@ p {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   flex: 1 1 300px;
   max-width: 30%;
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -57,10 +72,10 @@ p {
 .box1::before, .box2::before, .box3::before {
   content: '';
   display: block;
-  background: url('../assets/game-placeholder.jpg') center/cover no-repeat;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   width: 100%;
   height: 180px;
-  border-radius: 12px 12px 0 0;
+  border-radius: 12px;
   margin-bottom: 1rem;
 }
 
@@ -75,9 +90,89 @@ p {
 .box1 p, .box2 p, .box3 p {
   font-size: 1rem;
   line-height: 1.5;
+  color: #555;
 }
 
 /* Bottom Image Styling */
 .img2 {
-  margin-top: 2rem;
+  margin: 2rem 0;
+  padding: 0 1rem;
+}
+
+/* Tablet View */
+@media (max-width: 900px) {
+  .welcome-text p {
+    font-size: 1.5rem;
+  }
+  
+  .box {
+    padding: 1.5rem 1rem;
+  }
+  
+  .box1, .box2, .box3 {
+    max-width: 45%;
+    flex: 1 1 calc(50% - 1rem);
+  }
+}
+
+/* Mobile Portrait View */
+@media (max-width: 768px) {
+  .welcome-text {
+    margin: 1.5rem 0.5rem;
+  }
+  
+  .welcome-text p {
+    font-size: 1.3rem;
+  }
+  
+  .img1 img,
+  .img2 img {
+    max-height: 300px;
+    border-radius: 8px;
+  }
+  
+  .box {
+    flex-direction: column;
+    padding: 1rem 0.5rem;
+    gap: 1rem;
+  }
+  
+  .box1, .box2, .box3 {
+    max-width: 100%;
+    flex: 1 1 100%;
+    padding: 1rem;
+  }
+  
+  .box1::before, .box2::before, .box3::before {
+    height: 150px;
+    border-radius: 8px;
+  }
+  
+  .box1 h1, .box2 h1, .box3 h1 {
+    font-size: 1.2rem;
+  }
+  
+  .img2 {
+    margin: 1.5rem 0;
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-text p {
+    font-size: 1.1rem;
+  }
+  
+  .img1 img,
+  .img2 img {
+    max-height: 200px;
+  }
+  
+  .box1 h1, .box2 h1, .box3 h1 {
+    font-size: 1.1rem;
+  }
+  
+  .box1 p, .box2 p, .box3 p {
+    font-size: 0.9rem;
+  }
 }

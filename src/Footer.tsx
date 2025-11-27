@@ -1,4 +1,5 @@
 import './css/footer.css'
+import { Link } from 'react-router-dom'
 import logo from './assets/logo.png'
 import fbfav from './assets/sociallogo/fblogo.png'
 import tiktokfav from './assets/sociallogo/tiktoklogo.png'
@@ -41,17 +42,12 @@ const Footer = () => {
           <ul>
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">Terms of Service</a></li>
-            <div>
-                <i className="fab fa-facebook fa-2x"></i>
-                <i className="fab fa-instagram fa-2x"></i>
-                <i className="fab fa-tiktok fa-2x"></i>
-            </div>
-
+            <li><Link to="/admin/login" className="admin-link">🔐 Admin Login</Link></li>
           </ul>
           <div className="social-icons">
-            <a href="https://www.facebook.com/DisneylandPokhara"><img src={fbfav}/></a>
-            <a href="https://www.tiktok.com/@pokharadisneyland7"><img src={tiktokfav}/></a>
-            <a href="https://www.instagram.com/pokharadisneypark/"><img src={igfav}/></a>
+            <a href="https://www.facebook.com/DisneylandPokhara"><img src={fbfav} alt="Facebook"/></a>
+            <a href="https://www.tiktok.com/@pokharadisneyland7"><img src={tiktokfav} alt="TikTok"/></a>
+            <a href="https://www.instagram.com/pokharadisneypark/"><img src={igfav} alt="Instagram"/></a>
           </div>
         </div>
         
